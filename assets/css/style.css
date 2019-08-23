@@ -1,0 +1,14 @@
+body {
+    background-image: url("../images/halftone-yellow.png");
+   }
+
+#headline{
+    border-style: solid;
+    border-color: antiquewhite;
+    border-width: 3px;
+    width: 250px;
+    height: 70px;
+    background-color: antiquewhite;
+    padding-left: 7px;
+    padding-top: 25px;
+}
