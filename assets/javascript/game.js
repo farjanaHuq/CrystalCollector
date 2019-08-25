@@ -14,28 +14,34 @@ $(document).ready(function () {
     var playerScore = 0;   
     var wins = 0;
     var losses = 0;
-    
-    //Generates random number
-    var randomNumber = Math.floor(Math.random() * 50) + 15;
+    var value = 0;
+  
+        
+    startTheGame();
+    //Restarts the game
+    function startTheGame(){
+        
+        //Generates random number
+        var randomNumber = Math.floor(Math.random() * 50) + 15;
 
-    //Appends random number
-    $("#random-number").append(randomNumber);
-
-    function startOver(){
+        //empty the random number text field
         $("#random-number").empty();
-        $("#random-number").append(Math.floor(Math.random() * 50) + 15);
+        //append random number
+        $("#random-number").append(randomNumber);
+        //empty the total score text field
         $("#total-score").empty(); 
-        $(document).on("click");
+        
+        //onclicks for crystals
+        $(document).on("click", '.crystal', function(){
+            value = $(this).attr('value');
+            compareScore(value, randomNumber);
+        });
+            
         playerScore = 0;
     }
-    console.log('start again');
-
-    $(document).on("click",".crystal", function () {
-
-        var value = $(this).attr('value');
-      
-        // console.log('crystals value ' + value);
-        // console.log("player score", playerScore); 
+    
+    //Compares player scores and the random number
+    function compareScore(value, randomNumber){
 
         if(playerScore < randomNumber){
             playerScore += Number(value);
@@ -43,20 +49,21 @@ $(document).ready(function () {
             $("#total-score").append(playerScore); 
 
         }else if (playerScore > randomNumber) {
+            $(document).off("click");
             alert('Sorry! You loose the game. Try again.');
             losses++;
             $("#count-loss").empty();
             $("#count-loss").append(losses);
-            startOver();
-        } else{
+            startTheGame();
+        }else{
+            $(document).off("click");
             alert('Congratz! You won the game. Play more.');
             wins++;
             $("#count-win").empty();
             $("#count-win").append(wins);
-            startOver();
+            startTheGame();
         }
-        
-    });
-     
+    }
 
+   
 });
