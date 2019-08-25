@@ -23,16 +23,19 @@ $(document).ready(function () {
 
     function startOver(){
         $("#random-number").empty();
-        $("#random-number").append(randomNumber);
+        $("#random-number").append(Math.floor(Math.random() * 50) + 15);
         $("#total-score").empty(); 
+        $(document).on("click");
+        playerScore = 0;
     }
+    console.log('start again');
 
     $(document).on("click",".crystal", function () {
 
         var value = $(this).attr('value');
       
-        console.log('crystals value ' + value);
-        console.log("player score", playerScore); 
+        // console.log('crystals value ' + value);
+        // console.log("player score", playerScore); 
 
         if(playerScore < randomNumber){
             playerScore += Number(value);
