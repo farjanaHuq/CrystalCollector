@@ -11,16 +11,16 @@ $(document).ready(function () {
     console.log("This is a game");
 
     //global variables
-    var playerScore = 0;   
+    var playerScore = 0;
     var wins = 0;
     var losses = 0;
     var value = 0;
-  
-        
+
+
     startTheGame();
     //Restarts the game
-    function startTheGame(){
-        
+    function startTheGame() {
+
         //Generates random number
         var randomNumber = Math.floor(Math.random() * 50) + 15;
 
@@ -29,41 +29,57 @@ $(document).ready(function () {
         //append random number
         $("#random-number").append(randomNumber);
         //empty the total score text field
-        $("#total-score").empty(); 
-        
+        $("#total-score").empty();
+
         //onclicks for crystals
-        $(document).on("click", '.crystal', function(){
+        $(document).on("click", '.crystal', function () {
+
+            assignCrystalValue();
+            // var id = $(this).attr('id');
             value = $(this).attr('value');
+            // console.log(`value of , ${id}, is ${value}`);
             compareScore(value, randomNumber);
         });
-            
+
         playerScore = 0;
+
     }
-    
+
+    //change crystal value
+    function assignCrystalValue() {
+        //assigns random value to the crystals
+        $("#diamond").attr('value', Math.floor(Math.random() * 6) + 1);
+        $("#emarald").val(Math.floor(Math.random() * 4) + 1);
+        $("#ruby").val(Math.floor(Math.random() * 10) + 1);
+        $("#saphire").val(Math.floor(Math.random() * 3) + 1)
+    }
+
     //Compares player scores and the random number
-    function compareScore(value, randomNumber){
+    function compareScore(value, randomNumber) {
 
-        if(playerScore < randomNumber){
+        //conditions to compare player's score and random number
+        if (playerScore < randomNumber) {
             playerScore += Number(value);
-            $("#total-score").empty();  
-            $("#total-score").append(playerScore); 
+            $("#total-score").empty();                         //empty total score div
+            $("#total-score").append(playerScore);             //append playerscore
 
-        }else if (playerScore > randomNumber) {
-            $(document).off("click");
-            alert('Sorry! You loose the game. Try again.');
-            losses++;
-            $("#count-loss").empty();
-            $("#count-loss").append(losses);
-            startTheGame();
-        }else{
-            $(document).off("click");
-            alert('Congratz! You won the game. Play more.');
-            wins++;
-            $("#count-win").empty();
-            $("#count-win").append(wins);
-            startTheGame();
+        } else if (playerScore > randomNumber) {
+            $(document).off("click");                         //click on the crystal turned off
+            alert('Sorry! You loose the game. Try again.');   // alert messages about loosing the game
+            losses++;                                         // count loss
+            $("#count-loss").empty();                         //empty loss div
+            $("#count-loss").append(losses);                  //display number of wins
+            startTheGame();                                   //start over the game
+
+        } else {
+            $(document).off("click");                        //click on the crystal turned off
+            alert('Congratz! You won the game. Play more.'); // alert messages about winning the game
+            wins++;                                          // count win
+            $("#count-win").empty();                         //empty win div
+            $("#count-win").append(wins);                    //display number of wins
+            startTheGame();                                  //start over the game
         }
     }
 
-   
+
 });
